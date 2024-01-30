@@ -7,7 +7,12 @@ from models.helpers import plot_pattern
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv(r'data\btc-usd_1d.csv')
+from features.localdata.localdata import LocalData
+
+localData = LocalData(timeframe='H1', pair='GBPUSD', account='real', platform='MT5')
+
+#df = pd.read_csv(r'data\btc-usd_1d.csv')
+df = localData.mergeDataAndColumn()
 idx_start = np.argmin(np.array(list(df['Low'])))
 
 wa = WaveAnalyzer(df=df, verbose=False)
